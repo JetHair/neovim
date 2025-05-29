@@ -98,32 +98,75 @@ require('lze').load {
     end,
   },
   {
-    "comment.nvim",
+    "mini.hipatterns",
     for_cat = 'general.extra',
     event = "DeferredUIEnter",
     after = function(plugin)
-      require('Comment').setup()
+            local hipatterns = require('mini.hipatterns')
+            hipatterns.setup({
+                highlighters = {
+                    fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+                    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+                    hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+                    todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+                    note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+
+                    -- Highlight hex color strings (`#rrggbb`) using that color
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                },
+            })
     end,
   },
   {
-    "indent-blankline.nvim",
+    "mini.pairs",
     for_cat = 'general.extra',
     event = "DeferredUIEnter",
     after = function(plugin)
-      require("ibl").setup()
+            require('mini.pairs').setup()
     end,
   },
   {
-    "nvim-surround",
-    for_cat = 'general.always',
+    "mini.files",
+    for_cat = 'general.extra',
     event = "DeferredUIEnter",
-    -- keys = "",
     after = function(plugin)
-      require('nvim-surround').setup()
+            require('mini.files').setup()
+     vim.keymap.set("n", "<leader>.", "<cmd>lua MiniFiles.open()<CR>", { noremap = true, desc = 'Open File Expoler' })
+    end,
+  },
+  {
+    "mini.cursorword",
+    for_cat = 'general.extra',
+    event = "DeferredUIEnter",
+    after = function(plugin)
+            require('mini.cursorword').setup()
+    end,
+  },
+  {
+    "mini.indentscope",
+    for_cat = 'general.extra',
+    event = "DeferredUIEnter",
+    after = function(plugin)
+      require("mini.indentscope").setup({
+        draw = {
+            delay = 0,
+          },
+        })
+    MiniIndentscope.gen_animation.none()
     end,
   },
   {
     "vim-startuptime",
+    for_cat = 'general.extra',
+    cmd = { "StartupTime" },
+    before = function(_)
+      vim.g.startuptime_event_width = 0
+      vim.g.startuptime_tries = 10
+      vim.g.startuptime_exe_path = nixCats.packageBinPath
+    end,
+  },
+  {
+    "",
     for_cat = 'general.extra',
     cmd = { "StartupTime" },
     before = function(_)

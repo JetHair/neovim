@@ -18,7 +18,7 @@ return {
       -- See `:help nvim-treesitter`
       require('nvim-treesitter.configs').setup {
         highlight = { enable = true, },
-        indent = { enable = false, },
+        indent = { enable = true, },
         incremental_selection = {
           enable = true,
           keymaps = {

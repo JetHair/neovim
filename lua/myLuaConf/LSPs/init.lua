@@ -102,6 +102,21 @@ require('lze').load {
     },
   },
   {
+    "clangd",
+    for_cat = "cpp",
+    -- if you don't provide the filetypes it asks lspconfig for them
+    lsp = {
+      filetypes = { "cpp", "h", "c", "cxx", "hh" },
+    },
+  },
+  {
+    "pyright",
+    for_cat = "python",
+    -- if you don't provide the filetypes it asks lspconfig for them
+    lsp = {
+    },
+  },
+  {
     "rnix",
     -- mason doesn't have nixd
     enabled = not catUtils.isNixCats,
