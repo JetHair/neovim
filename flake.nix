@@ -130,22 +130,37 @@
             # per nvim package you export
             debug = with pkgs; {
               go = [ delve ];
-              cpp = [ gbd ];
             };
             go = with pkgs; [
               gopls
+              go
               gotools
               go-tools
               gccgo
             ];
             cpp = with pkgs; [
-              rocmPackages.llvm.clang-tools
+              clang-tools
+              zig
+              clang
             ];
-            typescript = with pkgs; [
+            web = with pkgs; [
               typescript-language-server
+              nodejs_24
+              vscode-langservers-extracted
+              emmet-language-server
             ];
             python = with pkgs; [
               pyright
+              python3Full
+            ];
+            typst = with pkgs; [
+              typst
+              tinymist
+              typst-live
+              typst-fmt
+            ];
+            shell = with pkgs; [
+              bash-language-server
             ];
             # and easily check if they are included in lua
             format = with pkgs; [
@@ -174,6 +189,7 @@
               ];
               extra = [
                 oil-nvim
+                mini-files
                 nvim-web-devicons
               ];
             };
@@ -265,7 +281,6 @@
                 vim-startuptime
                 mini-hipatterns
                 mini-pairs
-                mini-files
                 mini-cursorword
                 mini-indentscope
                 snacks-nvim
@@ -408,7 +423,12 @@
 
               # enabling this category will enable the go category,
               # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
-              # go = true; # <- disabled but you could enable it with override or module on install
+              go = true; # <- disabled but you could enable it with override or module on install
+              python = true;
+              cpp = true;
+              typst = true;
+              web = true;
+              shell = true;
 
               # this does not have an associated category of plugins,
               # but lua can still check for it
@@ -460,6 +480,11 @@
               format = true;
               test = true;
               go = true; # <- disabled but you could enable it with override or module on install
+              python = true;
+              cpp = true;
+              typst = true;
+              web = true;
+              shell = true;
               lspDebugMode = false;
               themer = true;
               colorscheme = "doom-one";
